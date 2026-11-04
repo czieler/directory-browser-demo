@@ -57,8 +57,8 @@ I know the exercise said UI wasn’t the focus, but I’m a UI person, so I coul
 
 ## AI assistance
 
-I used AI as a helper while working through the take-home. I used Claude to compare my implementation with the project requirements, point out possible cleanup and edge cases, and help me verify behavior as I made changes. I also used it to help create sample folders and files for trying out browsing and search, and to draft this README. I also used GitHub Copilot, which suggested a backend search index: scanning the folder tree and storing file metadata (names, paths, sizes, and modified dates) in a searchable index or database, so searches query the index instead of walking the filesystem every time.
+I used AI as a helper while working through the take-home. I used Claude to compare my implementation with the project requirements, point out possible cleanup and edge cases, and help me verify behavior as I made changes. I also used it to help create sample folders and files for trying out browsing and search, and to draft this README.
 
-I also used AI as a quick syntax reference for things I couldn't remember offhand, mostly plain JavaScript and DOM patterns where I'd normally reach for the Angular equivalent.
+I also used GitHub Copilot, which suggested a backend search index: scanning the folder tree and storing file metadata (names, paths, sizes, and modified dates) in a searchable index or database, so searches query the index instead of walking the filesystem every time. I chose not to build that. The take-home was meant to take a couple of hours, and paging seemed like a good middle ground. If I were building this for production, I would likely add the index.
 
-I chose not to build that. The take-home was meant to take a couple of hours, and paging seemed like a good middle ground. If I were building this for production, I would likely add the index. The implementation and design choices are mine, and I reviewed and tested the changes in the running app.
+Finally, I used AI as a quick syntax reference for things I couldn't remember offhand, mostly plain JavaScript and DOM patterns where I'd normally reach for the Angular equivalent. The implementation and design choices are mine, and I reviewed and tested the changes in the running app.
