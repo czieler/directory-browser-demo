@@ -1,0 +1,405 @@
+body {
+  margin: 0;
+  color: #1c1c1a;
+  padding: 20px;
+  font:
+    16px/1.6 -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.centered-content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+main {
+  max-width: 416px;
+}
+
+.code {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 1.44px;
+  text-transform: uppercase;
+  color: #6b6a66;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.line {
+  margin: 0 0 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ddd9d1;
+  color: #6b6a66;
+}
+
+a {
+  color: #185fa5;
+}
+
+.item-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.item-link [data-name] {
+  text-decoration: underline;
+}
+
+.file-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.file-icon [hidden] {
+  display: none;
+}
+
+.custom-file-input {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  color: #666666;
+}
+
+/* Style the native file chooser button */
+.custom-file-input::file-selector-button,
+.dialog-button {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.custom-file-input::file-selector-button {
+  margin-right: 15px;
+}
+
+.custom-file-input::file-selector-button:hover,
+.dialog-button:hover {
+  background-color: #f0f6ff;
+  border-color: #b3d7ff;
+  color: #0056b3;
+}
+
+.custom-file-input::file-selector-button:active,
+.dialog-button:active {
+  background-color: #e2f0fd; /* Darker row selection blue */
+  border-color: #80bdff;
+}
+
+.bordered-input {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 14px;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1.5px solid #cccccc;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.bordered-input:focus {
+  border-color: #666666;
+}
+
+.search-field {
+  position: relative;
+  flex: 0 1 220px;
+}
+
+.search-field .bordered-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #666666;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.search-clear[hidden] {
+  display: none;
+}
+
+.search-field .bordered-input:not(:placeholder-shown) {
+  padding-right: 30px;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 800px;
+  max-height: 500px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.search-upload-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+table {
+  display: block;
+  width: 100%;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+thead,
+tbody,
+tfoot {
+  display: block;
+}
+
+thead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--scrollbar-width, 0px);
+}
+
+thead::after {
+  content: "";
+  background-color: #f7f7f7;
+  box-shadow: inset 0 1px #ddd, inset 0 -1px #ddd;
+}
+
+thead th:last-child {
+  border-right: 0;
+}
+
+thead tr,
+tbody tr,
+tfoot tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px var(
+      --date-column-width,
+      165px
+    ) 44px;
+}
+
+tbody {
+  max-height: 415px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  background-color: #f7f7f7;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+}
+
+tfoot td {
+  grid-column: 1 / -1;
+  font-weight: 600;
+  color: #666;
+  background-color: #f7f7f7;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-bottom: 0;
+}
+
+tr {
+  border-bottom: 1px solid #eee;
+}
+
+tr:last-child {
+  border-bottom: none;
+}
+
+td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+#search-sentinel td {
+  height: 1px;
+  padding: 0;
+  border: 0;
+}
+
+tbody td[colspan] {
+  grid-column: 1 / -1;
+}
+
+.size-column {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actions-column {
+  text-align: center;
+}
+
+.delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+}
+
+.delete-button[hidden] {
+  display: none;
+}
+
+.delete-button:hover {
+  color: #b3261e;
+}
+
+.delete-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.delete-dialog {
+  width: min(400px, calc(100% - 48px));
+  padding: 20px;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 12px 36px #0003;
+}
+
+.delete-dialog::backdrop {
+  background: #0007;
+}
+
+.delete-dialog h2,
+.delete-dialog p {
+  margin: 0 0 12px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.red-btn {
+  background-color: #b3261e;
+  border-color: #b3261e;
+  color: #fff;
+}
+
+.red-btn:hover {
+  background-color: #8c1d18;
+  border-color: #8c1d18;
+  color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #f0f6ff;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 0;
+  }
+
+  .search-upload-container {
+    padding: 12px;
+  }
+
+  .search-field {
+    flex: 1 1 220px;
+  }
+
+  #upload {
+    max-width: 100%;
+  }
+
+  .table-container {
+    width: 100%;
+    max-width: none;
+    margin: 12px 0 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  thead tr,
+  tbody tr,
+  tfoot tr {
+    --date-column-width: 120px;
+    grid-template-columns: minmax(0, 1fr) 72px var(--date-column-width) 40px;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .hidden-xs {
+    display: none;
+  }
+
+  thead tr,
+  tbody tr,
+  tfoot tr {
+    --date-column-width: 0px;
+    grid-template-columns: minmax(0, 1fr) 76px var(--date-column-width) 40px;
+  }
+}
