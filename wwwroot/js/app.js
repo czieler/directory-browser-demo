@@ -11,6 +11,7 @@ const deleteDialog = document.getElementById("delete-dialog");
 const deleteFileNameEl = document.getElementById("delete-file-name");
 const cancelDeleteButton = deleteDialog.querySelector('[value="cancel"]');
 
+// Keep the header aligned with the scrollable body when a vertical scrollbar appears.
 function updateScrollbarWidth() {
   const scrollbarWidth = rowsEl.offsetWidth - rowsEl.clientWidth;
 
@@ -26,6 +27,7 @@ let currentQuery = "";
 let searchOffset = 0;
 let searchHasMore = false;
 let searchPageLoading = false;
+let loadRequestId = 0;
 let searchDebounce;
 
 const searchObserver = new IntersectionObserver(
@@ -96,6 +98,10 @@ function formatDate(isoDate) {
     dateStyle: "short",
     timeStyle: "short",
   });
+}
+
+function formatCount(count, singular, plural) {
+  return `${count} ${count === 1 ? singular : plural}`;
 }
 
 // fills in a row from the template. folders navigate on click, files link
@@ -191,34 +197,45 @@ function render(data, query, append) {
     searchHasMore = data.hasMore;
     const totalCount = data.folderCount + data.fileCount;
 
-    summaryEl.textContent = `${totalCount} search results, ${formatFileSize(data.totalSize)}`;
+    summaryEl.textContent = `${formatCount(totalCount, "search result", "search results")}, ${formatFileSize(data.totalSize)}`;
   } else {
-    summaryEl.textContent = `${data.folderCount} folders, ${data.fileCount} files, ${formatFileSize(data.totalSize)}`;
+    summaryEl.textContent = `${formatCount(data.folderCount, "folder", "folders")}, ${formatCount(data.fileCount, "file", "files")}, ${formatFileSize(data.totalSize)}`;
   }
 
   updateScrollbarWidth();
 }
 
 function renderError(message) {
-  rowsEl.replaceChildren();
   summaryEl.textContent = message;
   updateScrollbarWidth();
 }
 
 // gets the data and draws it, errors show up on the page
 async function load(path, query, append = false) {
+  const requestId = ++loadRequestId;
+
   if (!append) {
     currentQuery = query;
     searchOffset = 0;
     searchHasMore = false;
+    searchPageLoading = false;
   }
 
   try {
     const data = await listing(path, query, searchOffset, searchPageSize);
 
+    // Ignore stale responses if navigation or a newer search has started.
+    if (requestId !== loadRequestId) {
+      return;
+    }
+
     currentPath = data.path;
     render(data, query, append);
   } catch (error) {
+    if (requestId !== loadRequestId) {
+      return;
+    }
+
     if (error.status === 404) {
       window.location.assign("/404.html");
       return;
@@ -234,10 +251,13 @@ async function loadNextSearchPage() {
   }
 
   searchPageLoading = true;
+  const requestId = loadRequestId + 1;
   try {
     await load(currentPath, currentQuery, true);
   } finally {
-    searchPageLoading = false;
+    if (requestId === loadRequestId) {
+      searchPageLoading = false;
+    }
   }
 }
 

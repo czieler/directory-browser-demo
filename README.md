@@ -43,6 +43,7 @@ I know the exercise said UI wasn’t the focus, but I’m a UI person, so I coul
 ## A couple of implementation tradeoffs
 
 - Search supports `offset` and `limit`, so the browser only renders a page of results at a time. The server still scans and sorts all matches for each request to calculate the overall counts and size; paging keeps the response and UI smaller, but does not reduce the filesystem scan.
+- Search treats the query as literal text in file and folder names; characters like `*`, `?`, `/`, and `..` are not interpreted as wildcards or paths.
 - Uploads use create-new behavior, so an existing file is not silently overwritten. Empty files are allowed.
 - The configured root is checked for ordinary path traversal. This is a take-home prototype and does not resolve filesystem links that might point outside the root.
 
@@ -56,4 +57,8 @@ I know the exercise said UI wasn’t the focus, but I’m a UI person, so I coul
 
 ## AI assistance
 
-I used AI as a helper while working through the take-home. I asked it to compare my implementation with the project requirements, point out possible cleanup and edge cases, and help me verify behavior as I made changes. I also used it to help create sample folders and files for trying out browsing and search. The implementation and design choices are mine, and I reviewed and tested the changes in the running app. I also had it create this README file.
+I used AI as a helper while working through the take-home. I used Claude to compare my implementation with the project requirements, point out possible cleanup and edge cases, and help me verify behavior as I made changes. I also used it to help create sample folders and files for trying out browsing and search, and to draft this README. I also used GitHub Copilot, which suggested a backend search index: scanning the folder tree and storing file metadata (names, paths, sizes, and modified dates) in a searchable index or database, so searches query the index instead of walking the filesystem every time.
+
+I also used AI as a quick syntax reference for things I couldn't remember offhand, mostly plain JavaScript and DOM patterns where I'd normally reach for the Angular equivalent.
+
+I chose not to build that. The take-home was meant to take a couple of hours, and paging seemed like a good middle ground. If I were building this for production, I would likely add the index. The implementation and design choices are mine, and I reviewed and tested the changes in the running app.

@@ -44,11 +44,14 @@ public class FilesController : ControllerBase {
         var options = new EnumerationOptions {
             RecurseSubdirectories = true,
             // one locked folder would throw and kill the whole search
-            IgnoreInaccessible = true,
-            MatchCasing = MatchCasing.CaseInsensitive
+            IgnoreInaccessible = true
         };
 
-        return BuildListing(path, folder.EnumerateFileSystemInfos("*" + query + "*", options), offset, limit);
+        var matches = folder
+            .EnumerateFileSystemInfos("*", options)
+            .Where(entry => entry.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+
+        return BuildListing(path, matches, offset, limit);
     }
 
     [HttpGet("download")]

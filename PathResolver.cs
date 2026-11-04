@@ -7,8 +7,11 @@ public sealed class PathResolver {
     private readonly string _rootPrefix;
  
     public PathResolver(IOptions<FileBrowserOptions> options, IHostEnvironment environment) {
-        Root = Path.GetFullPath(options.Value.RootPath, environment.ContentRootPath);
-        _rootPrefix = Root + Path.DirectorySeparatorChar;
+        Root = Path.TrimEndingDirectorySeparator(
+            Path.GetFullPath(options.Value.RootPath, environment.ContentRootPath));
+        _rootPrefix = Root.EndsWith(Path.DirectorySeparatorChar)
+            ? Root
+            : Root + Path.DirectorySeparatorChar;
     }
  
     public string Root { get; }
