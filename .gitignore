@@ -1,15 +1,8 @@
-# Visual Studio
 .vs/
 *.user
 *.suo
-
-# Build output
 bin/
 obj/
-
-# IDEs
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
